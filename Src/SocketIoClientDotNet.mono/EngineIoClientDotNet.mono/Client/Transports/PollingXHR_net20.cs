@@ -100,7 +100,7 @@ namespace Quobject.EngineIoClientDotNet.Client.Transports
         }
 
 
-        protected override void DoWrite(byte[] data, Action action)
+        protected override void DoWrite(byte[] data, ActionTrigger action)
         {
             var opts = new XHRRequest.RequestOptions {Method = "POST", Data = data, CookieHeaderValue = Cookie};
             var log = LogManager.GetLogger(Global.CallerName());
@@ -149,9 +149,9 @@ namespace Quobject.EngineIoClientDotNet.Client.Transports
 
         class SendEventSuccessListener : IListener
         {
-            private Action action;
+            private ActionTrigger action;
 
-            public SendEventSuccessListener(Action action)
+            public SendEventSuccessListener(ActionTrigger action)
             {
                 this.action = action;
             }

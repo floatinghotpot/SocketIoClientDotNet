@@ -69,7 +69,7 @@ namespace Quobject.EngineIoClientDotNet.ComponentEmitter
         /// <param name="eventString">event name</param>
         /// <param name="fn"></param>
         /// <returns>a reference to this object</returns>
-        public Emitter On(string eventString, Action fn)
+        public Emitter On(string eventString, ActionTrigger fn)
         {
             var listener = new ListenerImpl(fn);
             return this.On(eventString, listener);
@@ -110,7 +110,7 @@ namespace Quobject.EngineIoClientDotNet.ComponentEmitter
         /// <param name="eventString">an event name.</param>
         /// <param name="fn"></param>
         /// <returns>a reference to this object</returns>
-        public Emitter Once(string eventString, Action fn)
+        public Emitter Once(string eventString, ActionTrigger fn)
         {
             var listener = new ListenerImpl(fn);
             return this.Once(eventString, listener);
@@ -234,7 +234,7 @@ namespace Quobject.EngineIoClientDotNet.ComponentEmitter
     {
         private static int id_counter = 0;
         private int Id;
-        private readonly Action fn1; 
+        private readonly ActionTrigger fn1; 
         private readonly Action<object> fn;
 
         public ListenerImpl(Action<object> fn)
@@ -244,7 +244,7 @@ namespace Quobject.EngineIoClientDotNet.ComponentEmitter
             this.Id = id_counter++;
         }
 
-        public ListenerImpl(Action fn)
+        public ListenerImpl(ActionTrigger fn)
         {
 
             this.fn1 = fn;

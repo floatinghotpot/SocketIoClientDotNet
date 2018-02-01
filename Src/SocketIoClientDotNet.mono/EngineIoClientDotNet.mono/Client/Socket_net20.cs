@@ -62,7 +62,7 @@ namespace Quobject.EngineIoClientDotNet.Client
         private ImmutableList<string> Upgrades;
         private Dictionary<string, string> Query;
         private ImmutableList<Packet> WriteBuffer = ImmutableList<Packet>.Empty;
-        private ImmutableList<Action> CallbackBuffer = ImmutableList<Action>.Empty;
+        private ImmutableList<ActionTrigger> CallbackBuffer = ImmutableList<ActionTrigger>.Empty;
         private Dictionary<string, string> Cookies = new Dictionary<string, string>();
         /*package*/
         public Transport mTransport = null;
@@ -580,22 +580,22 @@ namespace Quobject.EngineIoClientDotNet.Client
         //    return returnstring;
         //}
 
-        public void Write(string msg, Action fn = null)
+        public void Write(string msg, ActionTrigger fn = null)
         {
             Send(msg, fn);
         }
 
-        public void Write(byte[] msg, Action fn = null)
+        public void Write(byte[] msg, ActionTrigger fn = null)
         {
             Send(msg, fn);
         }
 
-        public void Send(string msg, Action fn = null)
+        public void Send(string msg, ActionTrigger fn = null)
         {
             SendPacket(Packet.MESSAGE, msg, fn);
         }
 
-        public void Send(byte[] msg, Action fn = null)
+        public void Send(byte[] msg, ActionTrigger fn = null)
         {
             SendPacket(Packet.MESSAGE, msg, fn);
         }
@@ -607,17 +607,17 @@ namespace Quobject.EngineIoClientDotNet.Client
             SendPacket(new Packet(type), null);
         }
 
-        private void SendPacket(string type, string data, Action fn)
+        private void SendPacket(string type, string data, ActionTrigger fn)
         {
             SendPacket(new Packet(type, data), fn);
         }
 
-        private void SendPacket(string type, byte[] data, Action fn)
+        private void SendPacket(string type, byte[] data, ActionTrigger fn)
         {
             SendPacket(new Packet(type, data), fn);
         }
 
-        private void SendPacket(Packet packet, Action fn)
+        private void SendPacket(Packet packet, ActionTrigger fn)
         {
             if (fn == null)
             {
@@ -703,7 +703,7 @@ namespace Quobject.EngineIoClientDotNet.Client
             {
                 Transport = ImmutableList<Transport>.Empty.Add(transport),
                 Failed = ImmutableList<bool>.Empty.Add(false),
-                Cleanup = ImmutableList<Action>.Empty,
+                Cleanup = ImmutableList<ActionTrigger>.Empty,
                 Socket = this
             };
 
@@ -749,7 +749,7 @@ namespace Quobject.EngineIoClientDotNet.Client
         {
             public ImmutableList<Transport> Transport { get; set; }
             public ImmutableList<bool> Failed { get; set; }
-            public ImmutableList<Action> Cleanup { get; set; }
+            public ImmutableList<ActionTrigger> Cleanup { get; set; }
             public Socket Socket { get; set; }
         }
 
@@ -1101,7 +1101,7 @@ namespace Quobject.EngineIoClientDotNet.Client
                 EasyTimer.SetTimeout(() =>
                 {
                     WriteBuffer = ImmutableList<Packet>.Empty;
-                    CallbackBuffer = ImmutableList<Action>.Empty;
+                    CallbackBuffer = ImmutableList<ActionTrigger>.Empty;
                     PrevBufferLen = 0;
                 }, 1);
 
