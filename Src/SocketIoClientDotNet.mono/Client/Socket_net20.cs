@@ -157,7 +157,7 @@ namespace Quobject.SocketIoClientDotNet.Client
 			return this;
 		}
 
-		public Emitter Emit(string eventString, Action ack, params object[] args)
+		public Emitter Emit(string eventString, ActionTrigger ack, params object[] args)
 		{
 			return Emit(eventString, new AckImpl(ack), args);
 		}

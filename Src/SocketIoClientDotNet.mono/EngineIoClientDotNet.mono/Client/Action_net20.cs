@@ -2,5 +2,5 @@
 
 namespace System
 {
-	public delegate void Action();
+	public delegate void ActionTrigger();
 }

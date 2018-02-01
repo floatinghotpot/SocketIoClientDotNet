@@ -28,12 +28,12 @@ namespace Quobject.EngineIoClientDotNet.Client.Transports
             Poll();
         }
 
-        public void Pause(Action onPause)
+        public void Pause(ActionTrigger onPause)
         {
             //var log = LogManager.GetLogger(Global.CallerName());
 
             ReadyState = ReadyStateEnum.PAUSED;
-            Action pause = () =>
+            ActionTrigger pause = () =>
             {
                 //log.Info("paused");
                 ReadyState = ReadyStateEnum.PAUSED;
@@ -70,9 +70,9 @@ namespace Quobject.EngineIoClientDotNet.Client.Transports
         private class PauseEventDrainListener : IListener
         {
             private int[] total;
-            private Action pause;
+            private ActionTrigger pause;
 
-            public PauseEventDrainListener(int[] total, Action pause)
+            public PauseEventDrainListener(int[] total, ActionTrigger pause)
             {
                 this.total = total;
                 this.pause = pause;
@@ -103,9 +103,9 @@ namespace Quobject.EngineIoClientDotNet.Client.Transports
         class PauseEventPollCompleteListener : IListener
         {
             private int[] total;
-            private Action pause;
+            private ActionTrigger pause;
 
-            public PauseEventPollCompleteListener(int[] total, Action pause)
+            public PauseEventPollCompleteListener(int[] total, ActionTrigger pause)
             {
 
                 this.total = total;
@@ -343,7 +343,7 @@ namespace Quobject.EngineIoClientDotNet.Client.Transports
             return schema + "://" + this.Hostname + portString + this.Path + _query;
         }
 
-        protected virtual void DoWrite(byte[] data, Action action)
+        protected virtual void DoWrite(byte[] data, ActionTrigger action)
         {
             
         }

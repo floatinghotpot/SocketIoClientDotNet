@@ -4,12 +4,12 @@ namespace Quobject.SocketIoClientDotNet.Client
 {
     public class AckImpl : IAck
     {
-        private readonly Action fn;
+        private readonly ActionTrigger fn;
         private readonly Action<object> fn1;
         private readonly Action<object, object> fn2;
         private readonly Action<object, object, object> fn3;
 
-        public AckImpl(Action fn)
+        public AckImpl(ActionTrigger fn)
         {
             this.fn = fn;
         }

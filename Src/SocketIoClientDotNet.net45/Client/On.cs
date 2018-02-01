@@ -34,9 +34,9 @@ namespace Quobject.SocketIoClientDotNet.Client
 
         public class ActionHandleImpl : IHandle
         {
-            private Action fn;
+            private ActionTrigger fn;
 
-            public ActionHandleImpl(Action fn)
+            public ActionHandleImpl(ActionTrigger fn)
             {
                 this.fn = fn;
             }
